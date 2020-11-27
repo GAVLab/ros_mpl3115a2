@@ -28,31 +28,25 @@ def mpl3115a2_node():
     temp_pub = rospy.Publisher('mpl3115a2/temperature', Temperature, queue_size=10)
     press_pub = rospy.Publisher('mpl3115a2/pressure', FluidPressure, queue_size=10)
     alt_pub = rospy.Publisher('mpl3115a2/altitude', Float64, queue_size=10)
-    rospy.init_node('ros_mpl3115a2')
+    rospy.init_node('mpl3115a2')
     rate = rospy.Rate(1)
     rospy.loginfo(rospy.get_caller_id() + "  mpl3115a2 node launched.")
 
     while not rospy.is_shutdown():
-        #msg = sensor.temperature
-       # temp = sensor.temperature
         temp_msg = Temperature()
         temp_msg.header.stamp = rospy.Time.now()
         temp_msg.temperature = 0.0
         temp_msg.variance = 0.0
-        rospy.loginfo(rospy.get_caller_id() + " temp msg: " + str(temp_msg))
         temp_pub.publish(temp_msg)
         
         press_msg = FluidPressure()
         press_msg.header.stamp = rospy.Time.now()
         press_msg.fluid_pressure = sensor.pressure
         press_msg.variance = 0.0
-        rospy.loginfo(rospy.get_caller_id() + " pressure msg: " + str(press_msg))
         press_pub.publish(press_msg)
 
         alt_msg = sensor.altitude
-        rospy.loginfo(rospy.get_caller_id() + " alt msg: " + str(alt_msg))
         alt_pub.publish(alt_msg)
-
 
         rate.sleep()
 

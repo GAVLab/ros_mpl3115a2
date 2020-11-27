@@ -10,8 +10,23 @@ The node communicates with the MPL3115A2 via i2c on the Raspberry Pi using Adafr
 * Pressure (Pascals): `mpl3115a2/pressure`
 * Altimeter (m): `mpl3115a2/altimeter`
 
-Before using this node you must install the sensor library: `sudo pip3 install adafruit-circuitpython-mpl3115a2`
+## Installation Instructions
 
+* Enable i2c
+  ```
+  sudo apt-get install i2c-tools
+  i2cdetect -l
+  ```
+* Add `i2c-devl` to boot with `sudo nano /etc/modules-load.d/modules.conf`
+* Install wiringpi `sudo apt install wiringpi`
+* Connect i2c devices to Sparkfun Qwiic hat and run `i2cdetect -y 1` to identify channels
+* Install Circuit Python: https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi
+* Install driver for MPL3115A2 Baro/Temp/Alt Sensor: `sudo pip3 install adafruit-circuitpython-mpl3115a2`.
+
+## Running the Node
+
+* Option 1: `rosrun ros_mpl3115a2 talker.py` 
+* Option 2: `roslaunch launches/pitemp.launch`
 ## Tested Setup
 
 It should work on other versions but Python 3 is a requirement.
